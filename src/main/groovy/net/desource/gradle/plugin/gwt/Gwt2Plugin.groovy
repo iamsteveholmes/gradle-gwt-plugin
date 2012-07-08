@@ -15,21 +15,18 @@
  */
 package net.desource.gradle.plugin.gwt
 
-import org.gradle.api.Project
 import org.gradle.api.Plugin
-import org.gradle.api.plugins.JavaPlugin
-import org.gradle.api.tasks.SourceSet
-import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ConfigurationContainer
-import org.gradle.api.plugins.WarPluginConvention
-import org.gradle.api.plugins.WarPlugin
 import org.gradle.api.artifacts.UnknownConfigurationException
-import org.gradle.api.execution.TaskExecutionGraph
-import org.gradle.api.artifacts.ExternalModuleDependency
-import org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency
-import org.gradle.api.tasks.testing.Test
+import org.gradle.api.plugins.JavaPlugin
+import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.plugins.WarPlugin
+import org.gradle.api.plugins.WarPluginConvention
+import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.bundling.War
+import org.gradle.api.tasks.testing.Test
 
 /**
  *
@@ -87,7 +84,7 @@ class Gwt2Plugin implements Plugin<Project> {
                 SourceSet mainSourceSet = project.convention.getPlugin(JavaPluginConvention.class).sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME)
                 project.files(mainSourceSet.resources.srcDirs,
                               mainSourceSet.java.srcDirs,
-                              mainSourceSet.classesDir,
+                              mainSourceSet.output.classesDir,
                               mainSourceSet.compileClasspath);
             }
 
@@ -156,7 +153,7 @@ class Gwt2Plugin implements Plugin<Project> {
                               testSourceSet.runtimeClasspath,
                               mainSourceSet.resources.srcDirs,
                               mainSourceSet.java.srcDirs,
-                              mainSourceSet.classesDir,
+                              mainSourceSet.output.classesDir,
                               mainSourceSet.compileClasspath);
             }
 
